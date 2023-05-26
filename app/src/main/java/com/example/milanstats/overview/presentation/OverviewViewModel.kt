@@ -25,7 +25,7 @@ class OverviewViewModel @Inject constructor(
                 if (result.toString().isNotEmpty()) {
                     _state.update {
                         it.copy(
-                            countries = result.toString(),
+                            countries = result,
                             isLoading = false
                         )
                     }

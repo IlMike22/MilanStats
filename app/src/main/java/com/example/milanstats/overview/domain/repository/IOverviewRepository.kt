@@ -1,5 +1,7 @@
 package com.example.milanstats.overview.domain.repository
 
+import com.example.milanstats.overview.domain.model.Country
+
 interface IOverviewRepository {
-    suspend fun getCountries():Any
+    suspend fun getCountries(): List<Country>
 }

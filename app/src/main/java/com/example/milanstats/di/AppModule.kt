@@ -2,6 +2,7 @@ package com.example.milanstats.di
 
 import com.example.milanstats.common.API_KEY
 import com.example.milanstats.common.BASE_URI
+import com.example.milanstats.common.KEY_VALUE
 import com.example.milanstats.overview.data.IOverviewApi
 import com.example.milanstats.overview.data.repository.OverviewRepository
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
@@ -61,7 +62,7 @@ class BasicAuthInterceptor(apiKey:String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
         val authenticatedRequest: Request = request.newBuilder()
-            .header("x-apisports-key", apiKey).build()
+            .header(KEY_VALUE, apiKey).build()
         return chain.proceed(authenticatedRequest)
     }
 }
