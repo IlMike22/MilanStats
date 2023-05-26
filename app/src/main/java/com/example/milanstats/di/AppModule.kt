@@ -7,11 +7,11 @@ import com.example.milanstats.overview.data.IOverviewApi
 import com.example.milanstats.overview.data.repository.OverviewRepository
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
 import com.example.milanstats.overview.domain.use_case.GetCountriesUseCase
+import com.example.milanstats.overview.domain.use_case.GetLeaguesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -52,6 +52,12 @@ class AppModule {
     @Singleton
     fun provideGetCountriesUseCase(repo: IOverviewRepository): GetCountriesUseCase {
         return GetCountriesUseCase(repo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLeagueUseCase(repo: IOverviewRepository): GetLeaguesUseCase {
+        return GetLeaguesUseCase(repo)
     }
 }
 

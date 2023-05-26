@@ -3,6 +3,7 @@ package com.example.milanstats.overview.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.milanstats.overview.domain.use_case.GetCountriesUseCase
+import com.example.milanstats.overview.domain.use_case.GetLeaguesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OverviewViewModel @Inject constructor(
-    private val getCountries: GetCountriesUseCase
+    private val getCountries: GetCountriesUseCase,
+    private val getLeague: GetLeaguesUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(OverviewState())
     val state = _state.asStateFlow()
@@ -22,11 +24,13 @@ class OverviewViewModel @Inject constructor(
             _state.update { it.copy(isLoading = true) }
             try {
                 val result = getCountries()
+                val leagues = getLeague(result.first().id)
                 if (result.toString().isNotEmpty()) {
                     _state.update {
                         it.copy(
                             countries = result,
-                            isLoading = false
+                            isLoading = false,
+                            leagues = leagues
                         )
                     }
                 }

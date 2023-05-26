@@ -1,7 +1,6 @@
 package com.example.milanstats.overview.presentation
 
 import android.content.Context
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,10 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
-import com.example.milanstats.R
 
 @Composable
 fun OverviewScreen(
@@ -64,7 +61,9 @@ fun OverviewScreen(
                             .padding(8.dp)
                     ) {
                         AsyncImage(
-                            modifier = Modifier.size(32.dp).clip(CircleShape),
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clip(CircleShape),
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(country.flag)
                                 .decoderFactory(SvgDecoder.Factory())
@@ -76,6 +75,29 @@ fun OverviewScreen(
                             text = "${country.name} (${country.id})",
                             style = MaterialTheme.typography.headlineSmall
                         )
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    if (state.leagues.isNotEmpty()) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                        ) {
+                            state.leagues.forEach { league ->
+                                Text(text = league.name)
+                                Spacer(modifier = Modifier.width(16.dp))
+                                AsyncImage(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .clip(CircleShape),
+                                    model = ImageRequest.Builder(context)
+                                        .data(league.logo)
+                                        .decoderFactory(SvgDecoder.Factory())
+                                        .build(),
+                                    contentDescription = null
+                                )
+                            }
+                        }
                     }
                 }
             }
