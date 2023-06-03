@@ -2,10 +2,12 @@ package com.example.milanstats.overview.data.mapper
 
 import com.example.milanstats.overview.data.model.CountriesResponseDto
 import com.example.milanstats.overview.data.model.LeaguesResponseDto
+import com.example.milanstats.overview.data.model.teams.Team
 import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
 import com.example.milanstats.overview.data.model.Country as CountryData
 import com.example.milanstats.overview.data.model.League as LeagueData
+import com.example.milanstats.overview.domain.model.Team as TeamDomain
 
 fun CountriesResponseDto.toCountries(): List<Country> {
     return this.response.map { countryDto ->
@@ -57,10 +59,18 @@ fun List<LeagueData>.toLeagues(): List<League> {
     }
 }
 
-fun League.toLeagueData():LeagueData {
+fun League.toLeagueData(): LeagueData {
     return LeagueData(
         logo = this.logo,
         name = this.name,
         type = this.type
     )
 }
+
+fun Team.toDomainTeam(): TeamDomain =
+    TeamDomain(
+        name = this.name,
+        logo = this.logo,
+        country = this.country,
+        founded = this.founded
+    )

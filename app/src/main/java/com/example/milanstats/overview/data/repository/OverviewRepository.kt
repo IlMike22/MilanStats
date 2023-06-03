@@ -5,10 +5,12 @@ import com.example.milanstats.db.ILeagueDao
 import com.example.milanstats.overview.data.IOverviewApi
 import com.example.milanstats.overview.data.mapper.toCountries
 import com.example.milanstats.overview.data.mapper.toCountriesData
+import com.example.milanstats.overview.data.mapper.toDomainTeam
 import com.example.milanstats.overview.data.mapper.toLeagueData
 import com.example.milanstats.overview.data.mapper.toLeagues
 import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
+import com.example.milanstats.overview.domain.model.Team
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
 
 class OverviewRepository(
@@ -41,5 +43,9 @@ class OverviewRepository(
         }
 
         return leagueResponse
+    }
+
+    override suspend fun getTeamsByCountryName(countryCode: String): List<Team> {
+        return api.getTeamsByCountryCode(countryCode).response.map { it.team.toDomainTeam() }.toList()
     }
 }

@@ -99,6 +99,31 @@ fun OverviewScreen(
                             }
                         }
                     }
+                    if (state.teams.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Column(modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(16.dp)) {
+                            state.teams.forEach { team ->
+                                Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                                    Text(text = team.name)
+                                    Spacer(modifier = Modifier.width(16.dp))
+                                    Text(text = team.country)
+                                    Spacer(modifier = Modifier.width(16.dp))
+                                    AsyncImage(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .clip(CircleShape),
+                                        model = ImageRequest.Builder(context)
+                                            .data(team.logo)
+                                            .decoderFactory(SvgDecoder.Factory())
+                                            .build(),
+                                        contentDescription = null
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

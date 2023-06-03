@@ -10,6 +10,7 @@ import com.example.milanstats.overview.data.repository.OverviewRepository
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
 import com.example.milanstats.overview.domain.use_case.GetCountriesUseCase
 import com.example.milanstats.overview.domain.use_case.GetLeaguesUseCase
+import com.example.milanstats.overview.domain.use_case.GetTeamsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,6 +65,12 @@ class AppModule {
     @Singleton
     fun provideGetLeagueUseCase(repo: IOverviewRepository): GetLeaguesUseCase {
         return GetLeaguesUseCase(repo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetTeamsUseCase(repo: IOverviewRepository): GetTeamsUseCase {
+        return GetTeamsUseCase(repo)
     }
 }
 
