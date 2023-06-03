@@ -7,6 +7,6 @@ class GetCountriesUseCase(
     private val repository: IOverviewRepository
 ) {
     suspend operator fun invoke(): List<Country> {
-        return repository.getCountries()
+        return repository.getCountries("Italy")
     }
 }

@@ -4,6 +4,6 @@ import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
 
 interface IOverviewRepository {
-    suspend fun getCountries(): List<Country>
-    suspend fun getLeagues(counryCode:String): List<League>
+    suspend fun getCountries(countryName: String): List<Country>
+    suspend fun getLeagues(countryCode: String): List<League>
 }

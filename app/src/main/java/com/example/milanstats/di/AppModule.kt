@@ -3,6 +3,8 @@ package com.example.milanstats.di
 import com.example.milanstats.common.API_KEY
 import com.example.milanstats.common.BASE_URI
 import com.example.milanstats.common.KEY_VALUE
+import com.example.milanstats.db.ICountryDao
+import com.example.milanstats.db.ILeagueDao
 import com.example.milanstats.overview.data.IOverviewApi
 import com.example.milanstats.overview.data.repository.OverviewRepository
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
@@ -44,8 +46,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideOverviewRepository(api: IOverviewApi): IOverviewRepository {
-        return OverviewRepository(api)
+    fun provideOverviewRepository(
+        api: IOverviewApi,
+        countryDao: ICountryDao,
+        leagueDao: ILeagueDao
+    ): IOverviewRepository {
+        return OverviewRepository(api, countryDao, leagueDao)
     }
 
     @Provides
@@ -61,7 +67,7 @@ class AppModule {
     }
 }
 
-class BasicAuthInterceptor(apiKey:String) : Interceptor {
+class BasicAuthInterceptor(apiKey: String) : Interceptor {
     private val apiKey = apiKey
 
     @Throws(IOException::class)
