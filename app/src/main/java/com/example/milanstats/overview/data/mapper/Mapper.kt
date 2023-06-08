@@ -3,10 +3,14 @@ package com.example.milanstats.overview.data.mapper
 import com.example.milanstats.overview.data.model.CountriesResponseDto
 import com.example.milanstats.overview.data.model.LeaguesResponseDto
 import com.example.milanstats.overview.data.model.teams.Team
+import com.example.milanstats.overview.data.model.teamstatistics.Penalty
+import com.example.milanstats.overview.data.model.teamstatistics.TeamsStatisticsResponse
 import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
+import com.example.milanstats.overview.domain.model.TeamStatistic
 import com.example.milanstats.overview.data.model.Country as CountryData
 import com.example.milanstats.overview.data.model.League as LeagueData
+import com.example.milanstats.overview.domain.model.Penalty as PenaltyDomain
 import com.example.milanstats.overview.domain.model.Team as TeamDomain
 
 fun CountriesResponseDto.toCountries(): List<Country> {
@@ -42,6 +46,7 @@ fun List<CountryData>.toCountries(): List<Country> {
 fun LeaguesResponseDto.toLeagues(): List<League> {
     return this.response.map { leagueDto ->
         League(
+            id = leagueDto.league.id,
             name = leagueDto.league.name,
             logo = leagueDto.league.logo,
             type = leagueDto.league.type
@@ -52,6 +57,7 @@ fun LeaguesResponseDto.toLeagues(): List<League> {
 fun List<LeagueData>.toLeagues(): List<League> {
     return this.map { league ->
         League(
+            id = league.id,
             name = league.name,
             logo = league.logo,
             type = league.type
@@ -69,8 +75,24 @@ fun League.toLeagueData(): LeagueData {
 
 fun Team.toDomainTeam(): TeamDomain =
     TeamDomain(
+        id = this.id,
+        code = this.code,
         name = this.name,
         logo = this.logo,
         country = this.country,
-        founded = this.founded
+        founded = this.founded,
+        isNationalTeam = this.national
+    )
+
+fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic =
+    TeamStatistic(
+        teamForm = this.form ?: "NO TEAMFORM FOUND!",
+        penalty = this.penalty?.toDomainPenalty() ?: PenaltyDomain(0, 0, 0)
+    )
+
+fun Penalty.toDomainPenalty(): PenaltyDomain =
+    PenaltyDomain(
+        totalScored = this.scored.total,
+        totalMissed = this.missed.total,
+        total = this.total
     )

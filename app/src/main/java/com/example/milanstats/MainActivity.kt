@@ -26,7 +26,10 @@ class MainActivity : ComponentActivity() {
                     composable("overview") {
                         val viewModel = hiltViewModel<OverviewViewModel>()
                         val state by viewModel.state.collectAsStateWithLifecycle()
-                        OverviewScreen(state = state)
+                        OverviewScreen(
+                            state = state,
+                            onEvent = viewModel::onEvent
+                        )
                     }
                 }
             }

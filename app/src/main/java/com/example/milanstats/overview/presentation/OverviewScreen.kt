@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,7 +31,8 @@ import coil.request.ImageRequest
 @Composable
 fun OverviewScreen(
     modifier: Modifier = Modifier,
-    state: OverviewState
+    state: OverviewState,
+    onEvent: (OverviewEvent) -> Unit
 ) {
     val context: Context = LocalContext.current
 
@@ -54,6 +56,11 @@ fun OverviewScreen(
                     .fillMaxHeight()
                     .padding(8.dp)
             ) {
+                Button(onClick = {
+                    onEvent(OverviewEvent.CallApiAgain)
+                }) {
+                    Text(text = "Call api again")
+                }
                 state.countries.forEach { country ->
                     Row(
                         modifier = Modifier
@@ -101,11 +108,17 @@ fun OverviewScreen(
                     }
                     if (state.teams.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(16.dp))
-                        Column(modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(16.dp)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(16.dp)
+                        ) {
                             state.teams.forEach { team ->
-                                Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(8.dp)
+                                ) {
                                     Text(text = team.name)
                                     Spacer(modifier = Modifier.width(16.dp))
                                     Text(text = team.country)
@@ -123,6 +136,19 @@ fun OverviewScreen(
                                 }
                             }
                         }
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(16.dp)
+                    ) {
+                        Text(text = "Team Penalties Total: ${state.teamStatistic.penalty.total}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = "Team Penalties Missed: ${state.teamStatistic.penalty.totalMissed}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = "Team Penalties Scored: ${state.teamStatistic.penalty.totalScored}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = "Team Form: ${state.teamStatistic.teamForm}")
                     }
                 }
             }
