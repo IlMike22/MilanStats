@@ -33,14 +33,14 @@ class OverviewViewModel @Inject constructor(
                 val leagueCode = leagues.find {
                     it.name == "Serie A"
                 } ?: League(0, "", "", "")
-//                val teams = getTeamByName("ac milan")
+                val teams = getTeamByName("ac milan")
 
 //                val statistics = getTeamStatistics(leagueCode.id, 489, 2019) // TODO MIC get team id correctly with previous api call
                 if (countries.toString().isNotEmpty()) {
                     _state.update {
                         it.copy(
                             countries = countries,
-//                            teams = teams,
+                            teams = teams,
                             isLoading = false,
                             leagues = leagues,
 //                            teamStatistic = statistics
@@ -71,6 +71,10 @@ class OverviewViewModel @Inject constructor(
 
                     val statistics = getTeamStatistics(135, 489, 2021)
                 }
+            }
+
+            is OverviewEvent.OpenTeamDetails -> {
+                // TODO navigate to DetailScreen with parameters
             }
         }
     }

@@ -5,6 +5,7 @@ import com.example.milanstats.common.BASE_URI
 import com.example.milanstats.common.KEY_VALUE
 import com.example.milanstats.db.ICountryDao
 import com.example.milanstats.db.ILeagueDao
+import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.overview.data.IOverviewApi
 import com.example.milanstats.overview.data.repository.OverviewRepository
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
@@ -78,6 +79,12 @@ class AppModule {
     @Singleton
     fun provideGetTeamStatisticsUseCase(repo: IOverviewRepository): GetTeamStatisticsUseCase {
         return GetTeamStatisticsUseCase(repo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetTeamDetailsBySeasonUseCase(repo: IOverviewRepository): GetTeamDetailsBySeasonUseCase {
+        return GetTeamDetailsBySeasonUseCase(repo)
     }
 }
 

@@ -24,15 +24,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.example.milanstats.navigation.Route
 
 @Composable
 fun OverviewScreen(
     modifier: Modifier = Modifier,
     state: OverviewState,
-    onEvent: (OverviewEvent) -> Unit
+    onEvent: (OverviewEvent) -> Unit,
+    navController: NavController
 ) {
     val context: Context = LocalContext.current
 
@@ -56,6 +59,13 @@ fun OverviewScreen(
                     .fillMaxHeight()
                     .padding(8.dp)
             ) {
+                Button(onClick = {
+                    //TODO MIC not sure if this is the right way, better use VM to handle navigation?
+                    navController.navigate(Route.DETAIL + "?teamName={${state.teams.first().name})")
+                }) {
+                    Text(text = "Show Milan Detail Screen")
+                }
+
                 Button(onClick = {
                     onEvent(OverviewEvent.CallApiAgain)
                 }) {
