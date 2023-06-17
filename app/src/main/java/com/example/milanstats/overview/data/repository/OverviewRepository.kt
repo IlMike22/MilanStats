@@ -1,12 +1,12 @@
 package com.example.milanstats.overview.data.repository
 
+import com.example.milanstats.common.mapper.toDomainTeam
 import com.example.milanstats.db.ICountryDao
 import com.example.milanstats.db.ILeagueDao
-import com.example.milanstats.overview.data.IOverviewApi
+import com.example.milanstats.overview.data.IFootballApi
 import com.example.milanstats.overview.data.mapper.toCountries
 import com.example.milanstats.overview.data.mapper.toCountriesData
 import com.example.milanstats.overview.data.mapper.toDomainStatisticsResponse
-import com.example.milanstats.overview.data.mapper.toDomainTeam
 import com.example.milanstats.overview.data.mapper.toLeagues
 import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
@@ -16,7 +16,7 @@ import com.example.milanstats.overview.domain.repository.IOverviewRepository
 import com.example.milanstats.overview.data.model.League as LeagueDto
 
 class OverviewRepository(
-    private val api: IOverviewApi,
+    private val api: IFootballApi,
     private val countryDao: ICountryDao,
     private val leagueDao: ILeagueDao
 ) : IOverviewRepository {

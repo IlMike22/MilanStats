@@ -5,8 +5,11 @@ import com.example.milanstats.common.BASE_URI
 import com.example.milanstats.common.KEY_VALUE
 import com.example.milanstats.db.ICountryDao
 import com.example.milanstats.db.ILeagueDao
+import com.example.milanstats.detail.data.repository.DetailRepository
 import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
-import com.example.milanstats.overview.data.IOverviewApi
+import com.example.milanstats.detail.domain.repository.IDetailRepository
+import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
+import com.example.milanstats.overview.data.IFootballApi
 import com.example.milanstats.overview.data.repository.OverviewRepository
 import com.example.milanstats.overview.domain.repository.IOverviewRepository
 import com.example.milanstats.overview.domain.use_case.GetCountriesUseCase
@@ -35,7 +38,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideApi(): IOverviewApi {
+    fun provideApi(): IFootballApi {
         okHttpBuilder.addInterceptor(
             BasicAuthInterceptor(API_KEY)
         )
@@ -50,11 +53,19 @@ class AppModule {
     @Provides
     @Singleton
     fun provideOverviewRepository(
-        api: IOverviewApi,
+        api: IFootballApi,
         countryDao: ICountryDao,
         leagueDao: ILeagueDao
     ): IOverviewRepository {
         return OverviewRepository(api, countryDao, leagueDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDetailRepository(
+        api: IFootballApi
+    ): IDetailRepository {
+        return DetailRepository(api)
     }
 
     @Provides
@@ -85,6 +96,12 @@ class AppModule {
     @Singleton
     fun provideGetTeamDetailsBySeasonUseCase(repo: IOverviewRepository): GetTeamDetailsBySeasonUseCase {
         return GetTeamDetailsBySeasonUseCase(repo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetTableInformationUseCase(repo: IDetailRepository): GetTableInformationUseCase {
+        return GetTableInformationUseCase(repo)
     }
 }
 

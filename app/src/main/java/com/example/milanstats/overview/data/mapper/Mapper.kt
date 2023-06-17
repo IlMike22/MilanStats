@@ -2,7 +2,6 @@ package com.example.milanstats.overview.data.mapper
 
 import com.example.milanstats.overview.data.model.CountriesResponseDto
 import com.example.milanstats.overview.data.model.LeaguesResponseDto
-import com.example.milanstats.overview.data.model.teams.Team
 import com.example.milanstats.overview.data.model.teamstatistics.Penalty
 import com.example.milanstats.overview.data.model.teamstatistics.TeamsStatisticsResponse
 import com.example.milanstats.overview.domain.model.Country
@@ -11,7 +10,6 @@ import com.example.milanstats.overview.domain.model.TeamStatistic
 import com.example.milanstats.overview.data.model.Country as CountryData
 import com.example.milanstats.overview.data.model.League as LeagueData
 import com.example.milanstats.overview.domain.model.Penalty as PenaltyDomain
-import com.example.milanstats.overview.domain.model.Team as TeamDomain
 
 fun CountriesResponseDto.toCountries(): List<Country> {
     return this.response.map { countryDto ->
@@ -72,17 +70,6 @@ fun League.toLeagueData(): LeagueData {
         type = this.type
     )
 }
-
-fun Team.toDomainTeam(): TeamDomain =
-    TeamDomain(
-        id = this.id,
-        code = this.code,
-        name = this.name,
-        logo = this.logo,
-        country = this.country,
-        founded = this.founded,
-        isNationalTeam = this.national
-    )
 
 fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic =
     TeamStatistic(

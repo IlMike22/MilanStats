@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
+import com.example.milanstats.detail.domain.model.TableInformation
+import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
 import com.example.milanstats.overview.domain.use_case.GetTeamByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -17,6 +19,7 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val getTeamDetailsBySeason: GetTeamDetailsBySeasonUseCase,
     private val getTeamByName: GetTeamByNameUseCase,
+    private val getTableInformation: GetTableInformationUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val teamNameArg: String = checkNotNull(savedStateHandle[TEAM_NAME])
@@ -50,10 +53,19 @@ class DetailViewModel @Inject constructor(
                                 logo = team.logo,
                                 foundedYear = team.founded,
                                 teamForm = this.teamForm,
-                                penaltyData = this.penalty
+                                penaltyData = this.penalty,
+                                tableInformation = TableInformation() // TODO refactor this success state
                             )
                         )
                     }
+                }
+                val tableInformation = getTableInformation(135, 2022)
+                _state.update {
+                    it.copy(
+                        isSuccess = _state.value.isSuccess.copy(
+                            tableInformation = tableInformation
+                        )
+                    )
                 }
             } catch (exception: Exception) {
                 _state.update { it.copy(isLoading = false, isError = exception.message) }

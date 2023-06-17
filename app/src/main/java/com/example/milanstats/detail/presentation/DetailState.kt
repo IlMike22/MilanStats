@@ -1,5 +1,6 @@
 package com.example.milanstats.detail.presentation
 
+import com.example.milanstats.detail.domain.model.TableInformation
 import com.example.milanstats.overview.domain.model.Penalty
 
 data class DetailState(
@@ -13,7 +14,8 @@ data class TeamDetailData(
     val logo: String,
     val foundedYear: Int,
     val teamForm: String,
-    val penaltyData: Penalty
+    val penaltyData: Penalty,
+    val tableInformation: TableInformation
 ) {
     companion object {
         val EMPTY = TeamDetailData(
@@ -21,7 +23,8 @@ data class TeamDetailData(
             logo = "",
             foundedYear = 0,
             teamForm = "", // TODO parse team form later by extracting every single char and map it to TeamForm
-            penaltyData = Penalty.EMPTY
+            penaltyData = Penalty.EMPTY,
+            tableInformation = TableInformation()
         )
     }
 }
