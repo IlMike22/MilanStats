@@ -23,11 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.example.milanstats.R
 import com.example.milanstats.navigation.Route
 
 @Composable
@@ -63,13 +65,17 @@ fun OverviewScreen(
                     //TODO MIC not sure if this is the right way, better use VM to handle navigation?
                     navController.navigate(Route.DETAIL + "?teamName={${state.teams.first().name})")
                 }) {
-                    Text(text = "Show Milan Detail Screen")
+                    Text(
+                        text = stringResource(R.string.overview_screen_show_details_button_text)
+                    )
                 }
 
                 Button(onClick = {
                     onEvent(OverviewEvent.CallApiAgain)
                 }) {
-                    Text(text = "Call api again")
+                    Text(
+                        text = stringResource(R.string.overview_screen_call_api_again_button_text)
+                    )
                 }
                 state.countries.forEach { country ->
                     Row(
@@ -146,19 +152,6 @@ fun OverviewScreen(
                                 }
                             }
                         }
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(16.dp)
-                    ) {
-                        Text(text = "Team Penalties Total: ${state.teamStatistic.penalty.total}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Team Penalties Missed: ${state.teamStatistic.penalty.totalMissed}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Team Penalties Scored: ${state.teamStatistic.penalty.totalScored}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Team Form: ${state.teamStatistic.teamForm}")
                     }
                 }
             }

@@ -6,6 +6,7 @@ import com.example.milanstats.overview.data.model.teamstatistics.Penalty
 import com.example.milanstats.overview.data.model.teamstatistics.TeamsStatisticsResponse
 import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
+import com.example.milanstats.overview.domain.model.TeamForm
 import com.example.milanstats.overview.domain.model.TeamStatistic
 import com.example.milanstats.overview.data.model.Country as CountryData
 import com.example.milanstats.overview.data.model.League as LeagueData
@@ -73,7 +74,7 @@ fun League.toLeagueData(): LeagueData {
 
 fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic =
     TeamStatistic(
-        teamForm = this.form ?: "NO TEAMFORM FOUND!",
+        teamForms = this.form?.toTeamForms() ?: emptyList(),
         penalty = this.penalty?.toDomainPenalty() ?: PenaltyDomain(0, 0, 0)
     )
 
@@ -83,3 +84,26 @@ fun Penalty.toDomainPenalty(): PenaltyDomain =
         totalMissed = this.missed.total,
         total = this.total
     )
+
+fun String.toTeamForms(): List<TeamForm> {
+    var x = 0
+    val forms = mutableListOf<Char>()
+    while (x < this.length) {
+        forms.add(this[x])
+        x++
+    }
+    return forms.map {
+        it.toTeamForms()
+    }
+}
+
+fun Char.toTeamForms(): TeamForm {
+    return when (this) {
+        'W' -> TeamForm.WIN
+        'D' -> TeamForm.DRAW
+        'L' -> TeamForm.LOSE
+        else -> TeamForm.UNDEFINED
+    }
+}
+
+

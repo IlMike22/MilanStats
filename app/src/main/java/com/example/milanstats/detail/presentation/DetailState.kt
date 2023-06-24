@@ -2,18 +2,19 @@ package com.example.milanstats.detail.presentation
 
 import com.example.milanstats.detail.domain.model.TableInformation
 import com.example.milanstats.overview.domain.model.Penalty
+import com.example.milanstats.overview.domain.model.TeamForm
 
 data class DetailState(
     val isLoading: Boolean = false,
-    val isError: String? = null,
-    val isSuccess: TeamDetailData = TeamDetailData.EMPTY
+    val errorMessage: String? = null,
+    val teamDetails: TeamDetailData = TeamDetailData.EMPTY
 )
 
 data class TeamDetailData(
     val name: String,
     val logo: String,
     val foundedYear: Int,
-    val teamForm: String,
+    val teamForms: List<TeamForm>,
     val penaltyData: Penalty,
     val tableInformation: TableInformation
 ) {
@@ -22,16 +23,10 @@ data class TeamDetailData(
             name = "",
             logo = "",
             foundedYear = 0,
-            teamForm = "", // TODO parse team form later by extracting every single char and map it to TeamForm
+            teamForms = emptyList(),
             penaltyData = Penalty.EMPTY,
             tableInformation = TableInformation()
         )
     }
 }
 
-enum class TeamForm {
-    WIN,
-    DRAW,
-    LOSE,
-    UNDEFINED
-}

@@ -34,7 +34,7 @@ class DetailViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        isError = "Cannot get team name. Argument is null."
+                        errorMessage = "Cannot get team name. Argument is null."
                     )
 
                     return@launch
@@ -47,14 +47,14 @@ class DetailViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             isLoading = false,
-                            isError = null,
-                            isSuccess = TeamDetailData(
+                            errorMessage = null,
+                            teamDetails = TeamDetailData(
                                 name = team.name,
                                 logo = team.logo,
                                 foundedYear = team.founded,
-                                teamForm = this.teamForm,
+                                teamForms = this.teamForms,
                                 penaltyData = this.penalty,
-                                tableInformation = TableInformation() // TODO refactor this success state
+                                tableInformation = TableInformation()
                             )
                         )
                     }
@@ -62,13 +62,13 @@ class DetailViewModel @Inject constructor(
                 val tableInformation = getTableInformation(135, 2022)
                 _state.update {
                     it.copy(
-                        isSuccess = _state.value.isSuccess.copy(
+                        teamDetails = _state.value.teamDetails.copy(
                             tableInformation = tableInformation
                         )
                     )
                 }
             } catch (exception: Exception) {
-                _state.update { it.copy(isLoading = false, isError = exception.message) }
+                _state.update { it.copy(isLoading = false, errorMessage = exception.message) }
             }
         }
     }

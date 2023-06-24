@@ -1,5 +1,6 @@
 package com.example.milanstats.detail.presentation.screen.components
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,11 +10,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.example.milanstats.detail.domain.model.TableInformation
 
 @Composable
@@ -26,7 +36,9 @@ fun TableInformation(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Column(modifier = Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.fillMaxHeight()
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -56,6 +68,17 @@ fun TableInformation(
                 ) {
                     Text(text = standing.rank.toString())
                     Spacer(modifier = Modifier.width(16.dp))
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape),
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(standing.team.logo)
+                            .decoderFactory(SvgDecoder.Factory())
+                            .build(),
+                        contentDescription = null
+                    )
+                    Spacer(modifier.width(8.dp))
                     Text(text = standing.team.name)
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(text = standing.points.toString())
