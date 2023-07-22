@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.detail.domain.model.TableInformation
+import com.example.milanstats.detail.domain.use_case.GetLeagueByCountryCodeUseCase
 import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
 import com.example.milanstats.overview.domain.use_case.GetTeamByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ class DetailViewModel @Inject constructor(
     private val getTeamDetailsBySeason: GetTeamDetailsBySeasonUseCase,
     private val getTeamByName: GetTeamByNameUseCase,
     private val getTableInformation: GetTableInformationUseCase,
+    private val getLeagueByCountryCode: GetLeagueByCountryCodeUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val teamNameArg: String = checkNotNull(savedStateHandle[TEAM_NAME])
@@ -36,14 +38,15 @@ class DetailViewModel @Inject constructor(
                         isLoading = false,
                         errorMessage = "Cannot get team name. Argument is null."
                     )
-
                     return@launch
                 }
             }
             try {
-                val teamDeferred = getTeamAsync("Ac Milan")
+                val teamDeferred = getTeamAsync(teamNameArg)
                 val team = teamDeferred.await().first()
-                getTeamDetailsBySeason(135, team.id, 2022).apply {
+                val leagueDeferred = getLeagueAsync(team.country)
+                val league = leagueDeferred.await()
+                getTeamDetailsBySeason(league, team.id, 2022).apply {
                     _state.update {
                         it.copy(
                             isLoading = false,
@@ -59,7 +62,7 @@ class DetailViewModel @Inject constructor(
                         )
                     }
                 }
-                val tableInformation = getTableInformation(135, 2022)
+                val tableInformation = getTableInformation(league, 2022)
                 _state.update {
                     it.copy(
                         teamDetails = _state.value.teamDetails.copy(
@@ -82,6 +85,11 @@ class DetailViewModel @Inject constructor(
     private fun getTeamAsync(name: String) =
         viewModelScope.async {
             getTeamByName(name)
+        }
+
+    private fun getLeagueAsync(countryCode: String) =
+        viewModelScope.async {
+            getLeagueByCountryCode(countryCode)
         }
 
     companion object {

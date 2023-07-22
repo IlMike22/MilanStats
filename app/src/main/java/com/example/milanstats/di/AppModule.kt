@@ -8,6 +8,7 @@ import com.example.milanstats.db.ILeagueDao
 import com.example.milanstats.detail.data.repository.DetailRepository
 import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.detail.domain.repository.IDetailRepository
+import com.example.milanstats.detail.domain.use_case.GetLeagueByCountryCodeUseCase
 import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
 import com.example.milanstats.overview.data.IFootballApi
 import com.example.milanstats.overview.data.repository.OverviewRepository
@@ -102,6 +103,12 @@ class AppModule {
     @Singleton
     fun provideGetTableInformationUseCase(repo: IDetailRepository): GetTableInformationUseCase {
         return GetTableInformationUseCase(repo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLeagueByCountryCodeUseCase(repo: IDetailRepository): GetLeagueByCountryCodeUseCase {
+        return GetLeagueByCountryCodeUseCase(repo)
     }
 }
 

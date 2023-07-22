@@ -11,5 +11,6 @@ data class Team(
     val founded: Int,
     val logo: String,
     val name: String,
-    val national: Boolean
+    val national: Boolean,
+    val league: String?
 )

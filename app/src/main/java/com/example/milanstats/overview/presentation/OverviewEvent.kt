@@ -7,4 +7,7 @@ sealed interface OverviewEvent {
         val teamId: Int,
         val season: Int
     ) : OverviewEvent
+
+    data class OnSearchTextChanged(val newText: String) : OverviewEvent
+    object OnSearchClicked : OverviewEvent
 }

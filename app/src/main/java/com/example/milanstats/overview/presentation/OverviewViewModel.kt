@@ -80,6 +80,16 @@ class OverviewViewModel @Inject constructor(
             is OverviewEvent.OpenTeamDetails -> {
                 // TODO navigate to DetailScreen with parameters
             }
+
+            is OverviewEvent.OnSearchTextChanged -> {
+                _state.update { it.copy(searchText = event.newText) }
+            }
+
+            OverviewEvent.OnSearchClicked -> {
+                viewModelScope.launch {
+
+                }
+            }
         }
     }
 }

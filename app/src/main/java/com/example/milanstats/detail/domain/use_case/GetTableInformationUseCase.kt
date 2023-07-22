@@ -9,5 +9,4 @@ class GetTableInformationUseCase(
     suspend operator fun invoke(league: Int, season: Int): TableInformation {
         return repository.getTableInformation(league, season)
     }
-
 }

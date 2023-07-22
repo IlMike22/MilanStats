@@ -1,4 +1,4 @@
-package com.example.milanstats.overview.presentation
+package com.example.milanstats.overview.presentation.screen
 
 import android.content.Context
 import androidx.compose.foundation.layout.Box
@@ -15,15 +15,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -31,7 +38,10 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.milanstats.R
 import com.example.milanstats.navigation.Route
+import com.example.milanstats.overview.presentation.OverviewEvent
+import com.example.milanstats.overview.presentation.OverviewState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OverviewScreen(
     modifier: Modifier = Modifier,
@@ -40,6 +50,7 @@ fun OverviewScreen(
     navController: NavController
 ) {
     val context: Context = LocalContext.current
+    val focusRequester = remember { FocusRequester() }
 
     Box(
         contentAlignment = Alignment.Center,
@@ -61,9 +72,32 @@ fun OverviewScreen(
                     .fillMaxHeight()
                     .padding(8.dp)
             ) {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .focusRequester(focusRequester),
+                    textStyle = TextStyle(color = Black),
+                    placeholder = {
+                        if (state.searchText.isBlank()) Text(text = "Search for a famous team")
+                    },
+                    trailingIcon = {},
+                    value = state.searchText,
+                    onValueChange = { newText ->
+                        onEvent(OverviewEvent.OnSearchTextChanged(newText))
+                    }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = {
+                    onEvent(OverviewEvent.OnSearchClicked)
+                    navController.navigate(Route.DETAIL + "?teamName=${state.searchText}")
+                }) {
+                    Text(text = "Start search")
+                }
+
                 Button(onClick = {
                     //TODO MIC not sure if this is the right way, better use VM to handle navigation?
-                    navController.navigate(Route.DETAIL + "?teamName={${state.teams.first().name})")
+                    navController.navigate(Route.DETAIL + "?teamName=${state.teams.first().name}")
                 }) {
                     Text(
                         text = stringResource(R.string.overview_screen_show_details_button_text)

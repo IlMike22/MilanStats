@@ -11,5 +11,6 @@ data class OverviewState(
     val teams: List<Team> = emptyList(),
     val teamStatistic: TeamStatistic = TeamStatistic.EMPTY,
     val error: String? = null,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val searchText: String = ""
 )

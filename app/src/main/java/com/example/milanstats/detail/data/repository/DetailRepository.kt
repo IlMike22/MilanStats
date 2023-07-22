@@ -11,4 +11,10 @@ class DetailRepository(
     override suspend fun getTableInformation(league: Int, season: Int): TableInformation {
         return api.getStandings(season.toString(), league.toString()).toTableInformation()
     }
+
+    override suspend fun getLeagueByCountryCode(code: String): Int {
+        val response = api.getLeagueByCountryCode(code)
+        return response.response.first().league.id
+    }
+
 }

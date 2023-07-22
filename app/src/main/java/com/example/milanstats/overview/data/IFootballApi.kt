@@ -36,4 +36,9 @@ interface IFootballApi {
         @Query("season") season: String,
         @Query("league") league: String
     ): StandingsDto
+
+    @GET("leagues")
+    suspend fun getLeagueByCountryCode(
+        @Query("country") countryCode:String
+    ):LeaguesResponseDto
 }

@@ -14,7 +14,7 @@ import androidx.navigation.navArgument
 import com.example.milanstats.detail.presentation.DetailViewModel
 import com.example.milanstats.detail.presentation.screen.DetailScreen
 import com.example.milanstats.navigation.Route
-import com.example.milanstats.overview.presentation.OverviewScreen
+import com.example.milanstats.overview.presentation.screen.OverviewScreen
 import com.example.milanstats.overview.presentation.OverviewViewModel
 import com.example.milanstats.ui.theme.MilanStatsTheme
 import dagger.hilt.android.AndroidEntryPoint
