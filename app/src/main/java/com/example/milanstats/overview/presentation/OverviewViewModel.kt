@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,6 +28,8 @@ class OverviewViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
+        setupGreetingText()
+
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             try {
@@ -58,6 +61,24 @@ class OverviewViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun setupGreetingText() {
+        val currentDateTime = LocalDateTime.now()
+        var greetingText = ""
+        greetingText = if (currentDateTime.hour >= 12) {
+            "Good afternoon"
+        } else if (currentDateTime.hour in 17..20) {
+            "Good evening"
+        } else if (currentDateTime.hour in 21..23) {
+            "Good Night"
+        } else {
+            "Good morning!"
+        }
+
+        _state.update { it.copy(
+            greetingsText = greetingText
+        ) }
     }
 
     fun onEvent(event: OverviewEvent) {

@@ -1,5 +1,6 @@
 package com.example.milanstats.overview.presentation.screen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,11 +14,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -41,6 +51,7 @@ import com.example.milanstats.navigation.Route
 import com.example.milanstats.overview.presentation.OverviewEvent
 import com.example.milanstats.overview.presentation.OverviewState
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OverviewScreen(
@@ -52,137 +63,161 @@ fun OverviewScreen(
     val context: Context = LocalContext.current
     val focusRequester = remember { FocusRequester() }
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        if (state.error != null) {
-            Text(
-                text = state.error,
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Red
-            )
-        } else if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.size(32.dp))
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(8.dp)
-            ) {
-                OutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .focusRequester(focusRequester),
-                    textStyle = TextStyle(color = Black),
-                    placeholder = {
-                        if (state.searchText.isBlank()) Text(text = "Search for a famous team")
-                    },
-                    trailingIcon = {},
-                    value = state.searchText,
-                    onValueChange = { newText ->
-                        onEvent(OverviewEvent.OnSearchTextChanged(newText))
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomAppBar(
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = "Show favorites"
+                        )
                     }
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Show settings"
+                        )
+                    }
+                }
+            )
+        }
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            if (state.error != null) {
+                Text(
+                    text = state.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Red
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(onClick = {
-                    onEvent(OverviewEvent.OnSearchClicked)
-                    navController.navigate(Route.DETAIL + "?teamName=${state.searchText}")
-                }) {
-                    Text(text = "Start search")
-                }
-
-                Button(onClick = {
-                    //TODO MIC not sure if this is the right way, better use VM to handle navigation?
-                    navController.navigate(Route.DETAIL + "?teamName=${state.teams.first().name}")
-                }) {
-                    Text(
-                        text = stringResource(R.string.overview_screen_show_details_button_text)
-                    )
-                }
-
-                Button(onClick = {
-                    onEvent(OverviewEvent.CallApiAgain)
-                }) {
-                    Text(
-                        text = stringResource(R.string.overview_screen_call_api_again_button_text)
-                    )
-                }
-                state.countries.forEach { country ->
-                    Row(
+            } else if (state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.size(32.dp))
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(8.dp)
+                ) {
+                    Text(text = state.greetingsText, style = MaterialTheme.typography.headlineMedium)
+                    Spacer(modifier = Modifier.height(16.dp))
+                    OutlinedTextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
-                    ) {
-                        AsyncImage(
-                            modifier = Modifier
-                                .size(32.dp)
-                                .clip(CircleShape),
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(country.flag)
-                                .decoderFactory(SvgDecoder.Factory())
-                                .build(),
-                            contentDescription = null
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
+                            .focusRequester(focusRequester),
+                        textStyle = TextStyle(color = Black),
+                        placeholder = {
+                            if (state.searchText.isBlank()) Text(text = "Search for a famous team")
+                        },
+                        trailingIcon = {},
+                        value = state.searchText,
+                        onValueChange = { newText ->
+                            onEvent(OverviewEvent.OnSearchTextChanged(newText))
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedButton(onClick = {
+                        onEvent(OverviewEvent.OnSearchClicked)
+                        navController.navigate(Route.DETAIL + "?teamName=${state.searchText}")
+                    }) {
+                        Text(text = "Start search")
+                    }
+
+                    OutlinedButton(onClick = {
+                        //TODO MIC not sure if this is the right way, better use VM to handle navigation?
+                        navController.navigate(Route.DETAIL + "?teamName=${state.teams.first().name}")
+                    }) {
                         Text(
-                            text = "${country.name} (${country.id})",
-                            style = MaterialTheme.typography.headlineSmall
+                            text = stringResource(R.string.overview_screen_show_details_button_text)
                         )
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    if (state.leagues.isNotEmpty()) {
+
+                    Button(onClick = {
+                        onEvent(OverviewEvent.CallApiAgain)
+                    }) {
+                        Text(
+                            text = stringResource(R.string.overview_screen_call_api_again_button_text)
+                        )
+                    }
+                    state.countries.forEach { country ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(8.dp)
                         ) {
-                            state.leagues.forEach { league ->
-                                Text(text = league.name)
-                                Spacer(modifier = Modifier.width(16.dp))
-                                AsyncImage(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .clip(CircleShape),
-                                    model = ImageRequest.Builder(context)
-                                        .data(league.logo)
-                                        .decoderFactory(SvgDecoder.Factory())
-                                        .build(),
-                                    contentDescription = null
-                                )
-                            }
+                            AsyncImage(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .clip(CircleShape),
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(country.flag)
+                                    .decoderFactory(SvgDecoder.Factory())
+                                    .build(),
+                                contentDescription = null
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(
+                                text = "${country.name} (${country.id})",
+                                style = MaterialTheme.typography.headlineSmall
+                            )
                         }
-                    }
-                    if (state.teams.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(16.dp))
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .padding(16.dp)
-                        ) {
-                            state.teams.forEach { team ->
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(8.dp)
-                                ) {
-                                    Text(text = team.name)
-                                    Spacer(modifier = Modifier.width(16.dp))
-                                    Text(text = team.country)
+                        if (state.leagues.isNotEmpty()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                            ) {
+                                state.leagues.forEach { league ->
+                                    Text(text = league.name)
                                     Spacer(modifier = Modifier.width(16.dp))
                                     AsyncImage(
                                         modifier = Modifier
                                             .size(32.dp)
                                             .clip(CircleShape),
                                         model = ImageRequest.Builder(context)
-                                            .data(team.logo)
+                                            .data(league.logo)
                                             .decoderFactory(SvgDecoder.Factory())
                                             .build(),
                                         contentDescription = null
                                     )
+                                }
+                            }
+                        }
+                        if (state.teams.isNotEmpty()) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .padding(16.dp)
+                            ) {
+                                state.teams.forEach { team ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(8.dp)
+                                    ) {
+                                        Text(text = team.name)
+                                        Spacer(modifier = Modifier.width(16.dp))
+                                        Text(text = team.country)
+                                        Spacer(modifier = Modifier.width(16.dp))
+                                        AsyncImage(
+                                            modifier = Modifier
+                                                .size(32.dp)
+                                                .clip(CircleShape),
+                                            model = ImageRequest.Builder(context)
+                                                .data(team.logo)
+                                                .decoderFactory(SvgDecoder.Factory())
+                                                .build(),
+                                            contentDescription = null
+                                        )
+                                    }
                                 }
                             }
                         }

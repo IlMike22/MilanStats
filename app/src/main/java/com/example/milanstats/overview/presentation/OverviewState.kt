@@ -12,5 +12,6 @@ data class OverviewState(
     val teamStatistic: TeamStatistic = TeamStatistic.EMPTY,
     val error: String? = null,
     val isLoading: Boolean = false,
-    val searchText: String = ""
+    val searchText: String = "",
+    val greetingsText:String = ""
 )
