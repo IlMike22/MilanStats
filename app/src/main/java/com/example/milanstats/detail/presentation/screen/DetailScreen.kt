@@ -147,11 +147,9 @@ fun DetailScreen(
                             onClick = {},
                             label = {
                                 Text(text = it.name)
-                            })
+                            }
+                        )
                     }
-                }
-                state.teamDetails.teamForms.forEach {
-
                 }
             }
             if (state.teamDetails.tableInformation.standings.isNotEmpty()) {

@@ -2,8 +2,10 @@ package com.example.milanstats.overview.data.mapper
 
 import com.example.milanstats.overview.data.model.CountriesResponseDto
 import com.example.milanstats.overview.data.model.LeaguesResponseDto
+import com.example.milanstats.overview.data.model.teamstatistics.Biggest
 import com.example.milanstats.overview.data.model.teamstatistics.Penalty
 import com.example.milanstats.overview.data.model.teamstatistics.TeamsStatisticsResponse
+import com.example.milanstats.overview.domain.model.BiggestWinsAndLoses
 import com.example.milanstats.overview.domain.model.Country
 import com.example.milanstats.overview.domain.model.League
 import com.example.milanstats.overview.domain.model.TeamForm
@@ -72,10 +74,21 @@ fun League.toLeagueData(): LeagueData {
     )
 }
 
-fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic =
-    TeamStatistic(
+fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic {
+    println("!! $this")
+    return TeamStatistic(
         teamForms = this.form?.toTeamForms() ?: emptyList(),
-        penalty = this.penalty?.toDomainPenalty() ?: PenaltyDomain(0, 0, 0)
+        penalty = this.penalty?.toDomainPenalty() ?: PenaltyDomain(0, 0, 0),
+        biggest = this.biggest.toDomainBiggest()
+    )
+}
+
+fun Biggest.toDomainBiggest(): BiggestWinsAndLoses =
+    BiggestWinsAndLoses(
+        homeWin = this.wins.home,
+        homeDefeat = this.loses.home,
+        awayWin = this.wins.away,
+        awayDefeat = this.loses.away
     )
 
 fun Penalty.toDomainPenalty(): PenaltyDomain =

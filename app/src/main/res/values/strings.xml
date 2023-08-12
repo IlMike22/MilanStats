@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">MilanStats</string>
-    <string name="detail_screen_text_team_bilance">Teambilanz:</string>
-    <string name="detail_screen_text_penalty_missed">Verschossen: %s</string>
-    <string name="detail_screen_text_penalty_scored">Getroffen: %s</string>
+    <string name="detail_screen_text_team_bilance">Team balance</string>
+    <string name="detail_screen_text_penalty_missed">Missed: %s</string>
+    <string name="detail_screen_text_penalty_scored">Scored: %s</string>
     <string name="detail_screen_text_penalty_total">Total: %s</string>
-    <string name="detail_screen_text_penalty_bilance">Elfmeterbilanz</string>
-    <string name="detail_screen_text_founded_date">Gründungsjahr:</string>
+    <string name="detail_screen_text_penalty_bilance">Penalty balance</string>
+    <string name="detail_screen_text_founded_date">Founded date</string>
     <string name="detail_screen_error_title">An error occured!</string>
     <string name="detail_screen_error_text">Unknown error :(</string>
     <string name="overview_screen_show_details_button_text">Show Milan Detail Screen</string>
     <string name="overview_screen_call_api_again_button_text">Call api again</string>
+    <string name="overview_screen_team_balance_biggest_win_home">Biggest home win: %1$s</string>
+    <string name="overview_screen_team_balance_biggest_win_away">Biggest away win: %1$s</string>
+    <string name="overview_screen_team_balance_biggest_defeat_home">Biggest home defeat: %1$s</string>
+    <string name="overview_screen_team_balance_biggest_defeat_away">Biggest away defeat: %1$s</string>
+    <string name="overview_screeen_current_statistics_title">Current statistics</string>
 </resources>

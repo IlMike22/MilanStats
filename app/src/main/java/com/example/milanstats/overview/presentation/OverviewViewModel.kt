@@ -38,17 +38,19 @@ class OverviewViewModel @Inject constructor(
                 val leagueCode = leagues.find {
                     it.name == "Serie A"
                 } ?: League(0, "", "", "")
-                val teams = getTeamByName("ac milan")
+                val teamResult = getTeamByName("ac milan").first()
 
-//                val statistics = getTeamStatistics(leagueCode.id, 489, 2019) // TODO MIC get team id correctly with previous api call
+                // eg team code 489, season = current like 2023
+                val statistics = getTeamStatistics(leagueCode.id, teamResult.id, 2022)
+                println("Statistics: $statistics")
                 if (countries.toString().isNotEmpty()) {
                     _state.update {
                         it.copy(
-                            countries = countries,
-                            teams = teams,
+                            teamCountry = countries.first(),
                             isLoading = false,
-                            leagues = leagues,
-//                            teamStatistic = statistics
+                            teamName = teamResult.name,
+                            teamLogo = teamResult.logo,
+                            teamStatistic = statistics,
                         )
                     }
                 }
