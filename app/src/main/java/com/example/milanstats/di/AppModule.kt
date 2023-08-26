@@ -1,5 +1,7 @@
 package com.example.milanstats.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.milanstats.common.API_KEY
 import com.example.milanstats.common.BASE_URI
 import com.example.milanstats.common.KEY_VALUE
@@ -20,6 +22,7 @@ import com.example.milanstats.overview.domain.use_case.GetTeamStatisticsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -39,10 +42,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideApi(): IFootballApi {
+    fun provideApi(@ApplicationContext context: Context): IFootballApi {
         okHttpBuilder.addInterceptor(
             BasicAuthInterceptor(API_KEY)
         )
+        okHttpBuilder.addInterceptor(ChuckerInterceptor(context))
         return Retrofit.Builder()
             .baseUrl(BASE_URI)
             .addConverterFactory(GsonConverterFactory.create())

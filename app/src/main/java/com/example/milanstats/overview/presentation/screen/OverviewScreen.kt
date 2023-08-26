@@ -62,29 +62,10 @@ fun OverviewScreen(
     onEvent: (OverviewEvent) -> Unit,
     navController: NavController
 ) {
-    val context: Context = LocalContext.current
     val focusRequester = remember { FocusRequester() }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            BottomAppBar(
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = "Show favorites"
-                        )
-                    }
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = "Show settings"
-                        )
-                    }
-                }
-            )
-        }
     ) {
         Box(
             modifier = modifier

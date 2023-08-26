@@ -41,7 +41,7 @@ class OverviewViewModel @Inject constructor(
                 val teamResult = getTeamByName("ac milan").first()
 
                 // eg team code 489, season = current like 2023
-                val statistics = getTeamStatistics(leagueCode.id, teamResult.id, 2022)
+                val statistics = getTeamStatistics(leagueCode.id, teamResult.id, 2023)
                 println("Statistics: $statistics")
                 if (countries.toString().isNotEmpty()) {
                     _state.update {

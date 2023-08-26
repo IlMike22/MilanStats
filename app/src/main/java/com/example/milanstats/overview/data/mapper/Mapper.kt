@@ -85,10 +85,10 @@ fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic {
 
 fun Biggest.toDomainBiggest(): BiggestWinsAndLoses =
     BiggestWinsAndLoses(
-        homeWin = this.wins.home,
-        homeDefeat = this.loses.home,
-        awayWin = this.wins.away,
-        awayDefeat = this.loses.away
+        homeWin = this.wins?.home?:"undefined",
+        homeDefeat = this.loses?.home?:"undefined",
+        awayWin = this.wins?.away?:"undefined",
+        awayDefeat = this.loses?.away?:"undefined"
     )
 
 fun Penalty.toDomainPenalty(): PenaltyDomain =
