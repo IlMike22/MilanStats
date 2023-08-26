@@ -11,7 +11,6 @@ import com.example.milanstats.detail.data.repository.DetailRepository
 import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.detail.domain.repository.IDetailRepository
 import com.example.milanstats.detail.domain.use_case.GetLeagueByCountryCodeUseCase
-import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
 import com.example.milanstats.home.data.IFootballApi
 import com.example.milanstats.home.data.repository.HomeRepository
 import com.example.milanstats.home.domain.repository.IHomeRepository
@@ -19,6 +18,9 @@ import com.example.milanstats.home.domain.use_case.GetCountriesUseCase
 import com.example.milanstats.home.domain.use_case.GetLeaguesUseCase
 import com.example.milanstats.home.domain.use_case.GetTeamByNameUseCase
 import com.example.milanstats.home.domain.use_case.GetTeamStatisticsUseCase
+import com.example.milanstats.table.data.repository.TableRepository
+import com.example.milanstats.table.domain.repository.ITableRepository
+import com.example.milanstats.table.domain.usecase.GetTableInformationUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -105,7 +107,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideGetTableInformationUseCase(repo: IDetailRepository): GetTableInformationUseCase {
+    fun provideGetTableInformationUseCase(repo: ITableRepository): GetTableInformationUseCase {
         return GetTableInformationUseCase(repo)
     }
 
@@ -113,6 +115,16 @@ class AppModule {
     @Singleton
     fun provideGetLeagueByCountryCodeUseCase(repo: IDetailRepository): GetLeagueByCountryCodeUseCase {
         return GetLeagueByCountryCodeUseCase(repo)
+    }
+
+    // TABLE
+
+    @Provides
+    @Singleton
+    fun provideTableRepository(
+        api: IFootballApi
+    ): ITableRepository {
+        return TableRepository(api)
     }
 }
 

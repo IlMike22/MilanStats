@@ -1,10 +1,10 @@
-package com.example.milanstats.detail.domain.model
+package com.example.milanstats.table.domain.model
 
 import com.example.milanstats.home.domain.model.Team
 
 /**
-  Represents an object for showing the table for a league and season
-  got from standings api endpoint
+Represents an object for showing the table for a league and season
+got from standings api endpoint
  */
 data class TableInformation(
     val league: String = "",

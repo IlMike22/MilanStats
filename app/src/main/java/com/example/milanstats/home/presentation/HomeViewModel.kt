@@ -2,7 +2,7 @@ package com.example.milanstats.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
+import com.example.milanstats.table.domain.usecase.GetTableInformationUseCase
 import com.example.milanstats.home.domain.model.League
 import com.example.milanstats.home.domain.use_case.GetCountriesUseCase
 import com.example.milanstats.home.domain.use_case.GetLeaguesUseCase

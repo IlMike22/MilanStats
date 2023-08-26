@@ -33,7 +33,7 @@ import coil.request.ImageRequest
 import com.example.milanstats.R
 import com.example.milanstats.detail.presentation.DetailState
 import com.example.milanstats.detail.presentation.DetailUiEvent
-import com.example.milanstats.detail.presentation.screen.components.TableInformation
+import com.example.milanstats.table.presentation.components.TableInformation
 import com.example.milanstats.home.domain.model.Penalty
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -151,10 +151,6 @@ fun DetailScreen(
                         )
                     }
                 }
-            }
-            if (state.teamDetails.tableInformation.standings.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(24.dp))
-                TableInformation(tableInformation = state.teamDetails.tableInformation)
             }
         }
     }

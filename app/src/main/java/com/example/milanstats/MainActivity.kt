@@ -48,6 +48,7 @@ import com.example.milanstats.navigation.Route
 import com.example.milanstats.results.presentation.ResultsScreen
 import com.example.milanstats.settings.presentation.SettingScreen
 import com.example.milanstats.table.presentation.TableScreen
+import com.example.milanstats.table.presentation.TableViewModel
 import com.example.milanstats.ui.theme.MilanStatsTheme
 import com.example.milanstats.utils.items
 import dagger.hilt.android.AndroidEntryPoint
@@ -157,7 +158,9 @@ class MainActivity : ComponentActivity() {
                                     ResultsScreen()
                                 }
                                 composable(Route.TABLE) {
-                                    TableScreen()
+                                    val viewModel = hiltViewModel<TableViewModel>()
+                                    val state by viewModel.state.collectAsStateWithLifecycle()
+                                    TableScreen(state)
                                 }
                                 composable(Route.GOAL_SCORERS) {
                                     GoalScorersScreen()
