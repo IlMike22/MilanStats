@@ -7,7 +7,7 @@ import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.detail.domain.model.TableInformation
 import com.example.milanstats.detail.domain.use_case.GetLeagueByCountryCodeUseCase
 import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
-import com.example.milanstats.overview.domain.use_case.GetTeamByNameUseCase
+import com.example.milanstats.home.domain.use_case.GetTeamByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow

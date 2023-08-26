@@ -12,13 +12,13 @@ import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.detail.domain.repository.IDetailRepository
 import com.example.milanstats.detail.domain.use_case.GetLeagueByCountryCodeUseCase
 import com.example.milanstats.detail.domain.use_case.GetTableInformationUseCase
-import com.example.milanstats.overview.data.IFootballApi
-import com.example.milanstats.overview.data.repository.OverviewRepository
-import com.example.milanstats.overview.domain.repository.IOverviewRepository
-import com.example.milanstats.overview.domain.use_case.GetCountriesUseCase
-import com.example.milanstats.overview.domain.use_case.GetLeaguesUseCase
-import com.example.milanstats.overview.domain.use_case.GetTeamByNameUseCase
-import com.example.milanstats.overview.domain.use_case.GetTeamStatisticsUseCase
+import com.example.milanstats.home.data.IFootballApi
+import com.example.milanstats.home.data.repository.HomeRepository
+import com.example.milanstats.home.domain.repository.IHomeRepository
+import com.example.milanstats.home.domain.use_case.GetCountriesUseCase
+import com.example.milanstats.home.domain.use_case.GetLeaguesUseCase
+import com.example.milanstats.home.domain.use_case.GetTeamByNameUseCase
+import com.example.milanstats.home.domain.use_case.GetTeamStatisticsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,8 +61,8 @@ class AppModule {
         api: IFootballApi,
         countryDao: ICountryDao,
         leagueDao: ILeagueDao
-    ): IOverviewRepository {
-        return OverviewRepository(api, countryDao, leagueDao)
+    ): IHomeRepository {
+        return HomeRepository(api, countryDao, leagueDao)
     }
 
     @Provides
@@ -75,31 +75,31 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideGetCountriesUseCase(repo: IOverviewRepository): GetCountriesUseCase {
+    fun provideGetCountriesUseCase(repo: IHomeRepository): GetCountriesUseCase {
         return GetCountriesUseCase(repo)
     }
 
     @Provides
     @Singleton
-    fun provideGetLeagueUseCase(repo: IOverviewRepository): GetLeaguesUseCase {
+    fun provideGetLeagueUseCase(repo: IHomeRepository): GetLeaguesUseCase {
         return GetLeaguesUseCase(repo)
     }
 
     @Provides
     @Singleton
-    fun provideGetTeamsUseCase(repo: IOverviewRepository): GetTeamByNameUseCase {
+    fun provideGetTeamsUseCase(repo: IHomeRepository): GetTeamByNameUseCase {
         return GetTeamByNameUseCase(repo)
     }
 
     @Provides
     @Singleton
-    fun provideGetTeamStatisticsUseCase(repo: IOverviewRepository): GetTeamStatisticsUseCase {
+    fun provideGetTeamStatisticsUseCase(repo: IHomeRepository): GetTeamStatisticsUseCase {
         return GetTeamStatisticsUseCase(repo)
     }
 
     @Provides
     @Singleton
-    fun provideGetTeamDetailsBySeasonUseCase(repo: IOverviewRepository): GetTeamDetailsBySeasonUseCase {
+    fun provideGetTeamDetailsBySeasonUseCase(repo: IHomeRepository): GetTeamDetailsBySeasonUseCase {
         return GetTeamDetailsBySeasonUseCase(repo)
     }
 

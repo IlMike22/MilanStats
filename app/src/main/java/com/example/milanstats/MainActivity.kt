@@ -40,9 +40,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.milanstats.detail.presentation.DetailViewModel
 import com.example.milanstats.detail.presentation.screen.DetailScreen
+import com.example.milanstats.goalscorers.presentation.GoalScorersScreen
+import com.example.milanstats.home.presentation.HomeViewModel
+import com.example.milanstats.home.presentation.screen.OverviewScreen
+import com.example.milanstats.injuries.presentation.InjuriesScreen
 import com.example.milanstats.navigation.Route
-import com.example.milanstats.overview.presentation.OverviewViewModel
-import com.example.milanstats.overview.presentation.screen.OverviewScreen
+import com.example.milanstats.results.presentation.ResultsScreen
+import com.example.milanstats.settings.presentation.SettingScreen
+import com.example.milanstats.table.presentation.TableScreen
 import com.example.milanstats.ui.theme.MilanStatsTheme
 import com.example.milanstats.utils.items
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,7 +84,7 @@ class MainActivity : ComponentActivity() {
                                             scope.launch {
                                                 drawerState.close()
                                             }
-                                            println("!! navigate to ${item.title}")
+                                            navController.navigate(item.route)
                                         },
                                         icon = {
                                             Icon(
@@ -122,9 +127,9 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         ) {
-                            NavHost(navController = navController, startDestination = "overview") {
-                                composable(Route.OVERVIEW) {
-                                    val viewModel = hiltViewModel<OverviewViewModel>()
+                            NavHost(navController = navController, startDestination = "home") {
+                                composable(Route.HOME) {
+                                    val viewModel = hiltViewModel<HomeViewModel>()
                                     val state by viewModel.state.collectAsStateWithLifecycle()
                                     OverviewScreen(
                                         state = state,
@@ -147,6 +152,21 @@ class MainActivity : ComponentActivity() {
                                         state = state,
                                         onEvent = viewModel::onEvent
                                     )
+                                }
+                                composable(Route.RESULTS) {
+                                    ResultsScreen()
+                                }
+                                composable(Route.TABLE) {
+                                    TableScreen()
+                                }
+                                composable(Route.GOAL_SCORERS) {
+                                    GoalScorersScreen()
+                                }
+                                composable(Route.INJURIES) {
+                                    InjuriesScreen()
+                                }
+                                composable(Route.SETTINGS) {
+                                    SettingScreen()
                                 }
                             }
                         }

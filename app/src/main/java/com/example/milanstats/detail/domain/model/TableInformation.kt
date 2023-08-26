@@ -1,6 +1,6 @@
 package com.example.milanstats.detail.domain.model
 
-import com.example.milanstats.overview.domain.model.Team
+import com.example.milanstats.home.domain.model.Team
 
 /**
   Represents an object for showing the table for a league and season

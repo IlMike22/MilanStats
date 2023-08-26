@@ -1,6 +1,6 @@
 package com.example.milanstats.detail.data.model
 
-import com.example.milanstats.overview.data.model.teams.Team
+import com.example.milanstats.home.data.model.teams.Team
 
 data class Standing(
     val all: All,

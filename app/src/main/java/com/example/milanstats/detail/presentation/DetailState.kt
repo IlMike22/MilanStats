@@ -1,8 +1,8 @@
 package com.example.milanstats.detail.presentation
 
 import com.example.milanstats.detail.domain.model.TableInformation
-import com.example.milanstats.overview.domain.model.Penalty
-import com.example.milanstats.overview.domain.model.TeamForm
+import com.example.milanstats.home.domain.model.Penalty
+import com.example.milanstats.home.domain.model.TeamForm
 
 data class DetailState(
     val isLoading: Boolean = false,

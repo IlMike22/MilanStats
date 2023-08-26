@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import com.example.milanstats.overview.data.model.Country
+import com.example.milanstats.home.data.model.Country
 
 @Dao
 interface ICountryDao {

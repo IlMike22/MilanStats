@@ -1,7 +1,7 @@
 package com.example.milanstats.common.mapper
 
-import com.example.milanstats.overview.data.model.teams.Team
-import com.example.milanstats.overview.domain.model.Team as TeamDomain
+import com.example.milanstats.home.data.model.teams.Team
+import com.example.milanstats.home.domain.model.Team as TeamDomain
 
 fun Team.toDomainTeam(): TeamDomain =
     TeamDomain(

@@ -2,8 +2,8 @@ package com.example.milanstats.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.milanstats.overview.data.model.Country
-import com.example.milanstats.overview.data.model.League
+import com.example.milanstats.home.data.model.Country
+import com.example.milanstats.home.data.model.League
 
 @Database(
     entities = [Country::class, League::class],

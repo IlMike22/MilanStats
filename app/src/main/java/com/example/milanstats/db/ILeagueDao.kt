@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.milanstats.overview.data.model.League
+import com.example.milanstats.home.data.model.League
 
 @Dao
 interface ILeagueDao {
