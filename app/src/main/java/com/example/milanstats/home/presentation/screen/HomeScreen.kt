@@ -2,6 +2,7 @@ package com.example.milanstats.home.presentation.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
@@ -41,10 +43,10 @@ import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.milanstats.R
-import com.example.milanstats.navigation.Route
 import com.example.milanstats.home.domain.model.Penalty
 import com.example.milanstats.home.presentation.HomeEvent
 import com.example.milanstats.home.presentation.HomeState
+import com.example.milanstats.navigation.Route
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,13 +68,30 @@ fun OverviewScreen(
                 .padding(8.dp)
         ) {
             if (state.error != null) {
-                Text(
-                    text = state.error,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Red
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = state.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Red
+                    )
+                }
+
             } else if (state.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(32.dp))
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(32.dp))
+                }
             } else {
                 Column(
                     modifier = Modifier
