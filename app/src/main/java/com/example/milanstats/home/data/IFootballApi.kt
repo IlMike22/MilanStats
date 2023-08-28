@@ -39,6 +39,11 @@ interface IFootballApi {
 
     @GET("leagues")
     suspend fun getLeagueByCountryCode(
-        @Query("country") countryCode:String
-    ):LeaguesResponseDto
+        @Query("country") countryCode: String
+    ): LeaguesResponseDto
+
+    @GET("injuries")
+    suspend fun getPlayerInjuries(
+        @Query("team") teamId: String
+    ): InjuriesDto
 }
