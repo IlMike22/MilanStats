@@ -45,5 +45,5 @@ interface IFootballApi {
     @GET("injuries")
     suspend fun getPlayerInjuries(
         @Query("team") teamId: String
-    ): InjuriesDto
+    ): Unit
 }

@@ -8,6 +8,7 @@ class InjuriesRepository(
     private val api: IFootballApi
 ) : IInjuriesRepository {
     override suspend fun getPlayerInjuries(teamId:String): List<Injury> {
-       return api.getPlayerInjuries(teamId)
+//       return api.getPlayerInjuries(teamId)
+        return emptyList()
     }
 }
