@@ -42,7 +42,6 @@ class HomeViewModel @Inject constructor(
 
                 // eg team code 489, season = current like 2023
                 val statistics = getTeamStatistics(leagueCode.id, teamResult.id, 2023)
-                println("Statistics: $statistics")
                 if (countries.toString().isNotEmpty()) {
                     _state.update {
                         it.copy(

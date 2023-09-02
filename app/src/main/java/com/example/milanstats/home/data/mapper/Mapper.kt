@@ -75,7 +75,6 @@ fun League.toLeagueData(): LeagueData {
 }
 
 fun TeamsStatisticsResponse.toDomainStatisticsResponse(): TeamStatistic {
-    println("!! $this")
     return TeamStatistic(
         teamForms = this.form?.toTeamForms() ?: emptyList(),
         penalty = this.penalty?.toDomainPenalty() ?: PenaltyDomain(0, 0, 0),

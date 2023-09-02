@@ -43,7 +43,8 @@ import com.example.milanstats.detail.presentation.screen.DetailScreen
 import com.example.milanstats.goalscorers.presentation.GoalScorersScreen
 import com.example.milanstats.home.presentation.HomeViewModel
 import com.example.milanstats.home.presentation.screen.OverviewScreen
-import com.example.milanstats.injuries.presentation.InjuriesScreen
+import com.example.milanstats.injuries.presentation.InjuryScreen
+import com.example.milanstats.injuries.presentation.InjuryViewModel
 import com.example.milanstats.navigation.Route
 import com.example.milanstats.results.presentation.ResultsScreen
 import com.example.milanstats.settings.presentation.SettingScreen
@@ -166,7 +167,9 @@ class MainActivity : ComponentActivity() {
                                     GoalScorersScreen()
                                 }
                                 composable(Route.INJURIES) {
-                                    InjuriesScreen()
+                                    val viewModel = hiltViewModel<InjuryViewModel>()
+                                    val state by viewModel.state.collectAsStateWithLifecycle()
+                                    InjuryScreen(state)
                                 }
                                 composable(Route.SETTINGS) {
                                     SettingScreen()
