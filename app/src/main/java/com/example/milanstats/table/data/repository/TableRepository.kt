@@ -7,7 +7,7 @@ import com.example.milanstats.table.domain.repository.ITableRepository
 
 class TableRepository(
     private val api: IFootballApi
-):ITableRepository {
+) : ITableRepository {
     override suspend fun getTableInformation(league: Int, season: Int): TableInformation {
         return api.getStandings(season.toString(), league.toString()).toTableInformation()
     }

@@ -8,12 +8,18 @@ import com.example.milanstats.table.domain.model.TableInformation
 
 
 fun StandingsDto.toTableInformation(): TableInformation {
-    this.response.first().apply {
-        return TableInformation(
-            league = league.name,
-            season = league.season.toString(),
-            standings = this.league.standings.first().toTableInformationStandings()
-        )
+    if (response.isEmpty() && errors != null) {
+        return TableInformation(errorMessage = errors.requests)
+    }
+    else {
+        this.response.first().apply {
+            return TableInformation(
+                league = league.name,
+                season = league.season.toString(),
+                standings = this.league.standings.first().toTableInformationStandings(),
+                errorMessage = errors?.requests
+            )
+        }
     }
 }
 fun List<Standing>.toTableInformationStandings(): List<com.example.milanstats.table.domain.model.Standing> =
@@ -32,6 +38,6 @@ fun List<Standing>.toTableInformationStandings(): List<com.example.milanstats.ta
                 lose = standingData.home.lose + standingData.away.lose,
                 win = standingData.home.win + standingData.away.win,
                 draw = standingData.home.draw + standingData.away.draw
-            ) // TODO finish this mapping and extract in into own mapper function for standingInformation
+            )
         )
     }

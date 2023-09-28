@@ -2,6 +2,7 @@ package com.example.milanstats.table.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.milanstats.table.domain.model.TableInformation
 import com.example.milanstats.table.domain.usecase.GetTableInformationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,6 @@ class TableViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = null,
                         tableInformation = tableInformation
                     )
                 }
@@ -34,8 +34,9 @@ class TableViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        tableInformation = null,
-                        errorMessage = exception.message
+                        tableInformation = TableInformation(
+                            errorMessage = "Unknown error that could not be parsed from api."
+                        )
                     )
                 }
             }

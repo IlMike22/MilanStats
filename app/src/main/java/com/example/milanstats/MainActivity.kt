@@ -40,11 +40,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.milanstats.detail.presentation.DetailViewModel
 import com.example.milanstats.detail.presentation.screen.DetailScreen
-import com.example.milanstats.goalscorers.presentation.GoalScorersScreen
+import com.example.milanstats.goalscorer.presentation.GoalScorersScreen
 import com.example.milanstats.home.presentation.HomeViewModel
-import com.example.milanstats.home.presentation.screen.OverviewScreen
-import com.example.milanstats.injuries.presentation.InjuryScreen
-import com.example.milanstats.injuries.presentation.InjuryViewModel
+import com.example.milanstats.home.presentation.screen.HomeScreen
+import com.example.milanstats.injury.presentation.InjuryScreen
+import com.example.milanstats.injury.presentation.InjuryViewModel
 import com.example.milanstats.navigation.Route
 import com.example.milanstats.results.presentation.ResultsScreen
 import com.example.milanstats.settings.presentation.SettingScreen
@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
                                 composable(Route.HOME) {
                                     val viewModel = hiltViewModel<HomeViewModel>()
                                     val state by viewModel.state.collectAsStateWithLifecycle()
-                                    OverviewScreen(
+                                    HomeScreen(
                                         state = state,
                                         onEvent = viewModel::onEvent,
                                         navController = navController

@@ -9,7 +9,7 @@ data class HomeState(
     val teamLogo: String = "",
     val teamStatistic: TeamStatistic = TeamStatistic.EMPTY,
     val currentTable: String = "", // TODO MIC do this next time
-    val error: String? = null,
+    val errorMessage: String? = null,
     val isLoading: Boolean = false,
     val searchText: String = "",
     val greetingsText: String = ""

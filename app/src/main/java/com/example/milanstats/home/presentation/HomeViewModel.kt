@@ -22,7 +22,6 @@ class HomeViewModel @Inject constructor(
     private val getLeague: GetLeaguesUseCase,
     private val getTeamByName: GetTeamByNameUseCase,
     private val getTeamStatistics: GetTeamStatisticsUseCase,
-    private val getTableInformation: GetTableInformationUseCase // TODO remove this later, only for api testing here
 ) : ViewModel() {
     private val _state = MutableStateFlow(HomeState())
     val state = _state.asStateFlow()
@@ -56,7 +55,7 @@ class HomeViewModel @Inject constructor(
             } catch (exception: Exception) {
                 _state.update {
                     it.copy(
-                        error = "Error. Details: ${exception.message}",
+                        errorMessage = "Error. Details: ${exception.message}",
                         isLoading = false
                     )
                 }

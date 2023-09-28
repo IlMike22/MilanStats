@@ -1,14 +1,8 @@
 package com.example.milanstats.table.presentation
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,40 +18,31 @@ fun TableScreen(
     state: TableState,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-            .horizontalScroll(rememberScrollState())
-    ) {
-        Spacer(modifier = Modifier.height(64.dp))
-        Text(text = "Current table", style = MaterialTheme.typography.headlineLarge)
-        if (state.isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else if (state.errorMessage != null) {
+    if (state.isLoading) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
+    } else if (state.tableInformation?.errorMessage != null) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(
+                modifier = Modifier.align(Alignment.Center).padding(16.dp),
+                text = state.tableInformation.errorMessage,
+                style = MaterialTheme.typography.bodyMedium, color = Color.Red
+            )
+        }
+    } else {
+        if (state.tableInformation == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
-                    text = "An error occured while loeading the table information.",
-                    style = MaterialTheme.typography.bodyMedium, color = Color.Red
+                    text = "TableInformation is null. That should no be the case.",
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
-        } else {
-            if (state.tableInformation == null) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(
-                        text = "TableInformation is null. That should no be the case.",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-                return
-            }
+            return
+        }
 
-            if (state.tableInformation.standings.isNotEmpty()) {
-                TableInformation(tableInformation = state.tableInformation)
-            }
+        if (state.tableInformation.standings.isNotEmpty()) {
+            TableInformation(tableInformation = state.tableInformation)
         }
     }
 }

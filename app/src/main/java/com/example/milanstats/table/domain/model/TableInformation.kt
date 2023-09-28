@@ -9,7 +9,8 @@ got from standings api endpoint
 data class TableInformation(
     val league: String = "",
     val season: String = "",
-    val standings: List<Standing> = emptyList()
+    val standings: List<Standing> = emptyList(),
+    val errorMessage: String? = null
 )
 
 data class Standing(

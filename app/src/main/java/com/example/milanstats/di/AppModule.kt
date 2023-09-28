@@ -18,9 +18,9 @@ import com.example.milanstats.home.domain.use_case.GetCountriesUseCase
 import com.example.milanstats.home.domain.use_case.GetLeaguesUseCase
 import com.example.milanstats.home.domain.use_case.GetTeamByNameUseCase
 import com.example.milanstats.home.domain.use_case.GetTeamStatisticsUseCase
-import com.example.milanstats.injuries.data.InjuriesRepository
-import com.example.milanstats.injuries.domain.GetPlayerInjuryUseCase
-import com.example.milanstats.injuries.domain.IInjuriesRepository
+import com.example.milanstats.injury.data.InjuryRepository
+import com.example.milanstats.injury.domain.GetPlayerInjuryUseCase
+import com.example.milanstats.injury.domain.IInjuryRepository
 import com.example.milanstats.table.data.repository.TableRepository
 import com.example.milanstats.table.domain.repository.ITableRepository
 import com.example.milanstats.table.domain.usecase.GetTableInformationUseCase
@@ -82,8 +82,8 @@ class AppModule {
     @Singleton
     fun provideInjuryRepository(
         api: IFootballApi
-    ): IInjuriesRepository {
-        return InjuriesRepository(api)
+    ): IInjuryRepository {
+        return InjuryRepository(api)
     }
 
     @Provides
@@ -130,7 +130,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideGetPlayerInjuriesUseCase(repo: IInjuriesRepository): GetPlayerInjuryUseCase {
+    fun provideGetPlayerInjuriesUseCase(repo: IInjuryRepository): GetPlayerInjuryUseCase {
         return GetPlayerInjuryUseCase(repo)
     }
 

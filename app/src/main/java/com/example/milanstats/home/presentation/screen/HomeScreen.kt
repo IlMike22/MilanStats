@@ -51,7 +51,7 @@ import com.example.milanstats.navigation.Route
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OverviewScreen(
+fun HomeScreen(
     modifier: Modifier = Modifier,
     state: HomeState,
     onEvent: (HomeEvent) -> Unit,
@@ -67,7 +67,7 @@ fun OverviewScreen(
                 .fillMaxSize()
                 .padding(8.dp)
         ) {
-            if (state.error != null) {
+            if (state.errorMessage != null) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -76,7 +76,7 @@ fun OverviewScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = state.error,
+                        text = state.errorMessage,
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Red
                     )
