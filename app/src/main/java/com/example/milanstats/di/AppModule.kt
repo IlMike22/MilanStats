@@ -11,6 +11,9 @@ import com.example.milanstats.detail.data.repository.DetailRepository
 import com.example.milanstats.detail.domain.GetTeamDetailsBySeasonUseCase
 import com.example.milanstats.detail.domain.repository.IDetailRepository
 import com.example.milanstats.detail.domain.use_case.GetLeagueByCountryCodeUseCase
+import com.example.milanstats.goalscorer.data.repository.GoalScorerRepository
+import com.example.milanstats.goalscorer.domain.repository.IGoalScorerRepository
+import com.example.milanstats.goalscorer.domain.use_case.GetGoalScorerUseCase
 import com.example.milanstats.home.data.IFootballApi
 import com.example.milanstats.home.data.repository.HomeRepository
 import com.example.milanstats.home.domain.repository.IHomeRepository
@@ -134,8 +137,9 @@ class AppModule {
         return GetPlayerInjuryUseCase(repo)
     }
 
-    // TABLE
-
+    /**
+     * Table components
+     */
     @Provides
     @Singleton
     fun provideTableRepository(
@@ -143,7 +147,27 @@ class AppModule {
     ): ITableRepository {
         return TableRepository(api)
     }
+
+    /**
+     * GoalScorer components
+     */
+    @Provides
+    @Singleton
+    fun provideGoalScorerRepository(
+        api: IFootballApi
+    ): IGoalScorerRepository {
+        return GoalScorerRepository(api)
+    }
+    @Provides
+    @Singleton
+    fun provideGetGoalScorerUseCase(repo: IGoalScorerRepository): GetGoalScorerUseCase {
+        return GetGoalScorerUseCase(repo)
+    }
 }
+
+/**
+ * Basic stuff
+ */
 
 class BasicAuthInterceptor(apiKey: String) : Interceptor {
     private val apiKey = apiKey

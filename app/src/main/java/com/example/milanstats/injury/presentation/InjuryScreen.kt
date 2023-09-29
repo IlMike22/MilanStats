@@ -39,10 +39,9 @@ fun InjuryScreen(
             .verticalScroll(rememberScrollState())
     ) {
         if (state.isLoading) {
-            Column(
+            Box(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(Modifier.size(16.dp))
             }

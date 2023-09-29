@@ -40,7 +40,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.milanstats.detail.presentation.DetailViewModel
 import com.example.milanstats.detail.presentation.screen.DetailScreen
-import com.example.milanstats.goalscorer.presentation.GoalScorersScreen
+import com.example.milanstats.goalscorer.presentation.GoalScorerScreen
+import com.example.milanstats.goalscorer.presentation.GoalScorerViewModel
 import com.example.milanstats.home.presentation.HomeViewModel
 import com.example.milanstats.home.presentation.screen.HomeScreen
 import com.example.milanstats.injury.presentation.InjuryScreen
@@ -164,7 +165,9 @@ class MainActivity : ComponentActivity() {
                                     TableScreen(state)
                                 }
                                 composable(Route.GOAL_SCORERS) {
-                                    GoalScorersScreen()
+                                    val viewModel = hiltViewModel<GoalScorerViewModel>()
+                                    val state by viewModel.state.collectAsStateWithLifecycle()
+                                    GoalScorerScreen(state)
                                 }
                                 composable(Route.INJURIES) {
                                     val viewModel = hiltViewModel<InjuryViewModel>()

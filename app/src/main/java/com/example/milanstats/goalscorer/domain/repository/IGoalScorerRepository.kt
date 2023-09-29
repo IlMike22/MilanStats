@@ -1,7 +1,7 @@
 package com.example.milanstats.goalscorer.domain.repository
 
-import com.example.milanstats.goalscorer.presentation.state.GoalScorerDomainResponse
+import com.example.milanstats.goalscorer.domain.model.GoalScorer
 
 interface IGoalScorerRepository {
-    suspend fun getGoalScorers():GoalScorerDomainResponse
+    suspend fun getGoalScorers(season: String, leagueId: String): List<GoalScorer>
 }

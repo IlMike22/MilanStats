@@ -52,7 +52,7 @@ interface IFootballApi {
 
     @GET("players/topscorers")
     suspend fun getGoalScorers(
-        @Query("team") teamId: String,
-        @Query("season") season:String
+        @Query("season") season:String,
+        @Query("league") league: String
     ): GoalScorerDto
 }
