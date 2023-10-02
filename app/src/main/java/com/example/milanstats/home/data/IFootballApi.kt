@@ -6,7 +6,7 @@ import com.example.milanstats.home.data.model.CountriesResponseDto
 import com.example.milanstats.home.data.model.LeaguesResponseDto
 import com.example.milanstats.home.data.model.teams.TeamsDto
 import com.example.milanstats.home.data.model.teamstatistics.TeamsStatisticsDto
-import com.example.milanstats.injury.data.model.InjuriesDto
+import com.example.milanstats.injury.data.model.InjuryDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -48,7 +48,7 @@ interface IFootballApi {
     suspend fun getPlayerInjuries(
         @Query("team") teamId: String,
         @Query("season") season: String
-    ): InjuriesDto
+    ): InjuryDto
 
     @GET("players/topscorers")
     suspend fun getGoalScorers(

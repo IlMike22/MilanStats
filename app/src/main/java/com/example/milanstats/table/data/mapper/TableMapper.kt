@@ -8,8 +8,8 @@ import com.example.milanstats.table.domain.model.TableInformation
 
 
 fun StandingsDto.toTableInformation(): TableInformation {
-    if (response.isEmpty() && errors != null) {
-        return TableInformation(errorMessage = errors.requests)
+    if (response.isEmpty()) {
+        return TableInformation(errorMessage = errors.first().toString())
     }
     else {
         this.response.first().apply {
@@ -17,7 +17,6 @@ fun StandingsDto.toTableInformation(): TableInformation {
                 league = league.name,
                 season = league.season.toString(),
                 standings = this.league.standings.first().toTableInformationStandings(),
-                errorMessage = errors?.requests
             )
         }
     }

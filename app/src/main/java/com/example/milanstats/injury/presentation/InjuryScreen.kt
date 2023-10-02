@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -58,7 +59,7 @@ fun InjuryScreen(
             }
         } else {
             state.injuries.distinctBy { it.playerId }.forEach {
-                Injury(injury = it)
+                Injury(injury = it, modifier = Modifier.height(64.dp))
             }
         }
     }
@@ -70,8 +71,7 @@ fun Injury(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
-            .size(width = 1000.dp, height = 130.dp)
+        modifier = modifier
             .padding(16.dp)
     ) {
         Text(
@@ -83,7 +83,7 @@ fun Injury(
         AsyncImage(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .size(32.dp)
+                .size(64.dp)
                 .clip(CircleShape),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(injury.photo)

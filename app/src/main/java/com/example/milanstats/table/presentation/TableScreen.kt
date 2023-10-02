@@ -22,15 +22,17 @@ fun TableScreen(
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
-    } else if (state.tableInformation?.errorMessage != null) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(
-                modifier = Modifier.align(Alignment.Center).padding(16.dp),
-                text = state.tableInformation.errorMessage,
-                style = MaterialTheme.typography.bodyMedium, color = Color.Red
-            )
-        }
-    } else {
+    }
+//    else if (state.tableInformation?.errorMessage != null) {
+//        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//            Text(
+//                modifier = Modifier.align(Alignment.Center).padding(16.dp),
+//                text = state.tableInformation.errorMessage,
+//                style = MaterialTheme.typography.bodyMedium, color = Color.Red
+//            )
+//        }
+//    }
+else {
         if (state.tableInformation == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(

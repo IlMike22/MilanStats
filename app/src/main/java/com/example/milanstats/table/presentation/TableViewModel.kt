@@ -35,7 +35,7 @@ class TableViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         tableInformation = TableInformation(
-                            errorMessage = "Unknown error that could not be parsed from api."
+//                            errorMessage = "Unknown error that could not be parsed from api."
                         )
                     )
                 }

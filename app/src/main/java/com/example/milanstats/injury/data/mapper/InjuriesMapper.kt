@@ -1,19 +1,23 @@
 package com.example.milanstats.injury.data.mapper
 
-import com.example.milanstats.injury.data.model.InjuriesDto
-import com.example.milanstats.injury.data.model.InjuriesResponse
+import com.example.milanstats.injury.data.model.InjuryDto
+import com.example.milanstats.injury.data.model.Response
 import com.example.milanstats.injury.domain.model.Injury
 import com.example.milanstats.injury.domain.model.InjuryDomainResponse
 
-fun InjuriesDto.toInjuries(): InjuryDomainResponse =
-    InjuryDomainResponse(
-        injuries = this.response.map { response ->
-            response.toInjury()
-        },
-        errorMessage = this.errors.requests
-    )
-
-fun InjuriesResponse.toInjury() =
+fun InjuryDto.toInjuries(): InjuryDomainResponse =
+    if (this.errors.isNotEmpty()) {
+        InjuryDomainResponse(
+            errorMessage = errors.first().toString()
+        )
+    } else {
+        InjuryDomainResponse(
+            injuries = this.response.map { response ->
+                response.toInjury()
+            }
+        )
+    }
+fun Response.toInjury() =
     Injury(
         playerId = this.player.id,
         name = this.player.name,

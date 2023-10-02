@@ -1,9 +1,9 @@
 package com.example.milanstats.injury.data.model
 
-data class InjuriesDto(
-    val errors: Errors,
+data class InjuryDto(
+    val errors: List<Any>,
     val `get`: String,
     val parameters: Parameters,
-    val response: List<InjuriesResponse>,
+    val response: List<Response>,
     val results: Int
 )
